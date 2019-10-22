@@ -1,4 +1,4 @@
-import React, {useState, Fragment} from 'react';
+import React, { useState, Fragment } from 'react';
 
 import styles from './styles.module.css';
 import ButtonN1 from './Buttons/ButtonN1';
@@ -19,14 +19,19 @@ const DescriptionList = () => (
 const HocsPlayground = () => {
     const [innerColor, setInnerColor] = useState('blue');
     const [outerColor, setOuterColor] = useState('red');
+    const [counter, setCounter] = useState(0);
+    const [descend, setDescend] = useState(5);
+    const [degree, setDegree] = useState(0);
+
+    let style = { transform: `rotate(-${degree}deg)` };
 
     return (
         <Fragment>
-            <DescriptionList/>
+            <DescriptionList />
 
             <svg>
-                <circle fill={outerColor} cx="60" cy="60" r="50"/>
-                <circle fill={innerColor} cx="60" cy="60" r="30"/>
+                <circle fill={outerColor} cx="60" cy="60" r="50" />
+                <circle fill={innerColor} cx="60" cy="60" r="30" />
             </svg>
 
             <div className={styles.buttonList}>
@@ -38,11 +43,19 @@ const HocsPlayground = () => {
                     Внешний в красный
                 </ButtonN2>
 
-                <ButtonN3 setOuterColor={setOuterColor} setInnerColor={setInnerColor}>Четные/нечетные клики</ButtonN3>
+                <ButtonN3 setOuterColor={setOuterColor} setInnerColor={setInnerColor}
+                    counter={counter} setCounter={setCounter}>
+                    {counter} Четные/нечетные клики
+                    </ButtonN3>
 
-                <ButtonN4 setOuterColor={setOuterColor} setInnerColor={setInnerColor}>Уходящий counter</ButtonN4>
+                <ButtonN4 setOuterColor={setOuterColor} setInnerColor={setInnerColor}
+                    descend={descend} setDescend={setDescend}>
+                    <span className={styles.descendValue} >{descend}</span> Уходящий counter
+                    </ButtonN4>
 
-                <ButtonN5 setOuterColor={setOuterColor} setInnerColor={setInnerColor}>Крутящаяся кнопка</ButtonN5>
+                <ButtonN5 setOuterColor={setOuterColor} setInnerColor={setInnerColor}
+                    style={style} setDegree={setDegree} >
+                    {degree + '%'} Крутящаяся кнопка</ButtonN5>
             </div>
         </Fragment>
     );

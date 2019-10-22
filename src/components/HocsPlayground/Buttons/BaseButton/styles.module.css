@@ -54,3 +54,7 @@
     color: white;
     background-color: dimgray;
 }
+
+.buttonPositionRelative {
+    position: relative;
+}

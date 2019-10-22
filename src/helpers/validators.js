@@ -28,15 +28,12 @@ const getNumbersCount = compose(length, replaceNumbers);
 
 const containsOnlyEng = test(/^[a-zA-Z0-9.+]+$/);
 
-
 /**
  * Функции для проверки выполнения условий с количеством цифр в строке
  */
 const moreValue = (limit, val) => val > limit;
 const lessValue = (limit, val) => val < limit;
-const isValExist = (val, str) => new RegExp(val).test(str);
 const opposite = val => !val;
-// const curriedFun = curry(lenMoreFive);
 
 /**
  * Функции для проверки выполнения условий с длиной строки
@@ -45,6 +42,8 @@ const opposite = val => !val;
 /**
  * Функции для проверки наличия конкретного символа в строке
  */
+
+const isValExist = (val, str) => new RegExp(val).test(str);
 
 // 1. Длина < 5 и кол-во цифр > 2 шт.
 const curriedLenFive = curry(lessValue)(5);

@@ -1,3 +1,10 @@
 .buttonList > button {
     margin-right: 15px;
 }
+
+.descendValue{
+    position: absolute;
+    top: -15px;
+    left: 45%;
+    color: black;
+}

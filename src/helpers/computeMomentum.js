@@ -1,6 +1,7 @@
-import {prop, cond, compose} from 'ramda';
+import { prop, cond, compose, curry } from 'ramda';
+import { over, zipObject } from 'lodash';
 
-import {SHAPES} from '../constants';
+import { SHAPES } from '../constants';
 
 // Использовать для округления результата
 const round = num => Math.round(num * 10) / 10;
@@ -15,17 +16,16 @@ const propHeight = prop('height');
 const propDensity = prop('density');
 const propSize = prop('size');
 
-
 /**
  * Промежуточные формулы для рассчета указанные в задании
  */
 const G = 9.8;
 
-const momentumFormula = ({mass, velocity}) => mass * velocity;
+const momentumFormula = ({ mass, velocity }) => mass * velocity;
 
-const velocityFormula = height => Math.sqrt(2 * G * height); 
+const velocityFormula = height => Math.sqrt(2 * G * height);
 
-const massFormula = ({volume, density}) => volume * density;
+const massFormula = ({ volume, density }) => volume * density;
 
 const cubeVolumeFormula = n => Math.pow(n, 3);
 
@@ -35,52 +35,50 @@ const tetrahedronVolumeFormula = r => (Math.pow(r, 3) * Math.sqrt(2)) / 12;
 
 
 const shapeEqualsCube = compose(
-    () => {},
-    //
+    (x) => x === SHAPES.CUBE
 );
 
 const shapeEqualsSphere = compose(
-    () => {},
-    //
+    (x) => x === SHAPES.SPHERE
 );
+
 const shapeEqualsTetrahedron = compose(
-    () => {},
-    //
+    (x) => x === SHAPES.TETRAHEDRON
 );
 
 const calcCubeVolume = compose(
-    () => {},
-    //
+    cubeVolumeFormula, propSize
 );
+
 const calcSphereVolume = compose(
-    () => {},
-    //
+    sphereVolumeFormula, propSize
 );
+
 const calcTetrahedronVolume = compose(
-    () => {},
-    //
+    tetrahedronVolumeFormula, propSize
 );
 
 const calcVolume = cond([
-    [() => {}, () => {}],
-    [() => {}, () => {}]
-    //
+    [compose(shapeEqualsCube, propShape), calcCubeVolume],
+    [compose(shapeEqualsSphere, propShape), calcSphereVolume],
+    [compose(shapeEqualsTetrahedron, propShape), calcTetrahedronVolume]
 ]);
 
 const calcMass = compose(
-    () => {},
-    //
+    massFormula,
+    curry(zipObject)(['density', 'volume']),
+    over([propDensity, calcVolume])
 );
 
 const calcVelocity = compose(
-    () => {},
-    //
+    velocityFormula, propHeight
 );
 
 const computeMomentum = compose(
-    () => {},
-    //
+    round,
+    momentumFormula,
+    curry(zipObject)(['mass', 'velocity']),
+    over([calcMass, calcVelocity])
 );
-
 
 export default computeMomentum;
