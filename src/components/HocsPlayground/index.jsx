@@ -54,7 +54,7 @@ const HocsPlayground = () => {
                     </ButtonN4>
 
                 <ButtonN5 setOuterColor={setOuterColor} setInnerColor={setInnerColor}
-                    style={style} setDegree={setDegree} >
+                    style={style} setDegree={setDegree} degree={degree} >
                     {degree + '%'} Крутящаяся кнопка</ButtonN5>
             </div>
         </Fragment>

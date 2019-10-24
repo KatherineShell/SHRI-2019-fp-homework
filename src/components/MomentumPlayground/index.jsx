@@ -1,4 +1,4 @@
-import React, {Fragment, useState} from 'react';
+import React, { Fragment, useState } from 'react';
 import MathJax from 'react-mathjax2'
 import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/Select';
@@ -11,7 +11,7 @@ import tetrahedronSrc from './images/tetrahedron.png'
 
 import styles from './styles.module.css';
 
-import {SHAPES, MATERIALS} from '../../constants';
+import { SHAPES, MATERIALS } from '../../constants';
 import computeMomentum from '../../helpers/computeMomentum';
 
 
@@ -37,37 +37,37 @@ const MomentumPlayground = () => {
     const [height, changeHeight] = useState(2);
     const [size, changeSize] = useState(0.5);
     const [density, changeDensity] = useState(MATERIALS.CUPRUM);
-    const [momentum, changeMomentum] = useState(computeMomentum({size, height, density, shape}));
+    const [momentum, changeMomentum] = useState(computeMomentum({ size, height, density, shape }));
 
-    const handleChangeShape = ({target}) => {
-        const {value} = target;
+    const handleChangeShape = ({ target }) => {
+        const { value } = target;
 
         changeShape(value);
-        const newMomentum = computeMomentum({size, height, density, shape: value});
+        const newMomentum = computeMomentum({ size, height, density, shape: value });
         changeMomentum(newMomentum);
     }
 
-    const handleChangeDensity = ({target}) => {
-        const {value} = target;
+    const handleChangeDensity = ({ target }) => {
+        const { value } = target;
 
         changeDensity(value);
-        const newMomentum = computeMomentum({size, height, density: value, shape});
+        const newMomentum = computeMomentum({ size, height, density: value, shape });
         changeMomentum(newMomentum);
     }
 
-    const handleChangeHeight = ({target}) => {
-        const {value} = target;
+    const handleChangeHeight = ({ target }) => {
+        const { value } = target;
 
         changeHeight(value);
-        const newMomentum = computeMomentum({size, height: value, density, shape});
+        const newMomentum = computeMomentum({ size, height: value, density, shape });
         changeMomentum(newMomentum);
     }
 
-    const handleChangeSize = ({target}) => {
-        const {value} = target;
+    const handleChangeSize = ({ target }) => {
+        const { value } = target;
 
         changeSize(value);
-        const newMomentum = computeMomentum({size: value, height, density, shape});
+        const newMomentum = computeMomentum({ size: value, height, density, shape });
         changeMomentum(newMomentum);
     }
 
@@ -76,41 +76,41 @@ const MomentumPlayground = () => {
             <MathJax.Context input='ascii'>
                 <Fragment>
                     <div>
-                        1) Формула для импульса тела массой <MathJax.Node inline>m</MathJax.Node>, 
-                        двигающегося со скоростью <MathJax.Node inline>v</MathJax.Node>. 
+                        1) Формула для импульса тела массой <MathJax.Node inline>m</MathJax.Node>,
+                        двигающегося со скоростью <MathJax.Node inline>v</MathJax.Node>.
                         <span className={styles.formula}><MathJax.Node inline>p = mv</MathJax.Node>.</span>
                     </div>
 
                     <div>
-                        2) Формула для расчёта скорости тела, падающего с высоты <MathJax.Node inline>h</MathJax.Node>, 
-                        перед ударом о поверхность:  <span className={styles.formula}><MathJax.Node inline>{speedFormula}</MathJax.Node></span>, 
+                        2) Формула для расчёта скорости тела, падающего с высоты <MathJax.Node inline>h</MathJax.Node>,
+                        перед ударом о поверхность:  <span className={styles.formula}><MathJax.Node inline>{speedFormula}</MathJax.Node></span>,
                         где <MathJax.Node>{GDescription}</MathJax.Node> – ускорение свободного падения.
                     </div>
 
                     <div>
-                        3) Формула для расчёта массы тела 
+                        3) Формула для расчёта массы тела
                         <span className={styles.formula}><MathJax.Node>{massFormula}</MathJax.Node></span>,
                         где <MathJax.Node>\rho</MathJax.Node> — плотность материала, <MathJax.Node>V</MathJax.Node> — объем тела.
                     </div>
 
                     <div>
-                        4) Формула для расчёта объёма куба c ребром длины 
+                        4) Формула для расчёта объёма куба c ребром длины
                         <MathJax.Node>a</MathJax.Node>: <span className={styles.formula}><MathJax.Node>V = a^3</MathJax.Node>.</span>
                     </div>
 
                     <div>
-                        5) Формула для расчёта объёма шара диаметром <MathJax.Node>d</MathJax.Node>: 
+                        5) Формула для расчёта объёма шара диаметром <MathJax.Node>d</MathJax.Node>:
                         <span className={styles.formula}><MathJax.Node>{sphereVolFormula}</MathJax.Node></span>.
                     </div>
 
                     <div>
-                        6) Формула для расчёта объёма правильного тетраэдра с ребром длины 
+                        6) Формула для расчёта объёма правильного тетраэдра с ребром длины
                         <MathJax.Node>а</MathJax.Node>: <span className={styles.formula}><MathJax.Node>{tetraVolFormula}</MathJax.Node></span>.
                     </div>
 
                     <p>
                         Также инженеры объяснили алгоритм вычисления импульса: сначала необходимо найти объем тела, исходя из его линейной величины и формы (использовать нужную формулу),
-                        далее, используя плотность материала <MathJax.Node>\rho</MathJax.Node> и полученный объём <MathJax.Node>V</MathJax.Node>, вычислить массу (значения плотности нам предоставили). 
+                        далее, используя плотность материала <MathJax.Node>\rho</MathJax.Node> и полученный объём <MathJax.Node>V</MathJax.Node>, вычислить массу (значения плотности нам предоставили).
                         Рассчитать скорость по известной высоте падения. И в конце умножить эту скорость на найденную ранее массу. <b> Полученный результат следует округлить с точностью до первого знака после запятой (математически, т.е. в ближайшую сторону 2.593 > 2.6, 2.32 > 2.3)</b>
                     </p>
 
@@ -120,33 +120,35 @@ const MomentumPlayground = () => {
                     </p>
 
                     <p>
-                        <i>Ослабления и условности в задаче: </i> 
+                        <i>Ослабления и условности в задаче: </i>
 
-                        При расчёте скорости считать тело материальной точкой, 
-                        т.е. не корректировать высоту падения с учётом линейных размеров тела — следует пользоваться алгоритмом выше. 
+                        При расчёте скорости считать тело материальной точкой,
+                        т.е. не корректировать высоту падения с учётом линейных размеров тела — следует пользоваться алгоритмом выше.
                         По желанию можете сделать валидацию входящих параметров: линейный размер тела не может быть больше высоты, линейный размер и начальная высота должны быть больше нуля.
-                        В тестах это проверятся не будет. 
+                        В тестах это проверятся не будет.
 
                         <b>Изменять только модуль src/helpers/computeMomentum.js</b>
                     </p>
                 </Fragment>
-            </MathJax.Context>      
+            </MathJax.Context>
 
             <div className={styles.controls}>
                 <div className={styles.control}>
-                    <TextField 
+                    <TextField
                         onChange={handleChangeHeight}
                         onBlur={handleChangeHeight}
                         value={height}
+                        error={height <= 0}
                         label="Начальная высота, м"
                     />
                 </div>
 
                 <div className={styles.control}>
-                    <TextField 
+                    <TextField
                         onChange={handleChangeSize}
                         onBlur={handleChangeSize}
                         value={size}
+                        error={size <= 0 || size > height}
                         label="Линейный размер, м"
                     />
                 </div>
@@ -160,7 +162,7 @@ const MomentumPlayground = () => {
                             name: 'shape',
                             id: 'shape',
                         }}
-                        >
+                    >
                         <MenuItem value={SHAPES.CUBE}>Куб</MenuItem>
                         <MenuItem value={SHAPES.SPHERE}>Сфера</MenuItem>
                         <MenuItem value={SHAPES.TETRAHEDRON}>Тетраэдр</MenuItem>
@@ -176,7 +178,7 @@ const MomentumPlayground = () => {
                             name: 'density',
                             id: 'density',
                         }}
-                        >
+                    >
                         <MenuItem value={MATERIALS.CUPRUM}>Медь</MenuItem>
                         <MenuItem value={MATERIALS.FERRUM}>Железо</MenuItem>
                         <MenuItem value={MATERIALS.AURUM}>Золото</MenuItem>
